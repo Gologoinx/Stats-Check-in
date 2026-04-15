@@ -53,7 +53,7 @@ export default function App() {
   const { isLoading: isConfirming, isSuccess: isConfirmed } = useWaitForTransactionReceipt({ hash });
 
   // Contract Address (User will replace this after deploying in Remix)
-  const CHECKIN_CONTRACT_ADDRESS = "0x0000000000000000000000000000000000000000"; 
+  const CHECKIN_CONTRACT_ADDRESS = "0xd07e0a99DBe142A60eCbFbcd13A935bb7bBBE167"; 
 
   useEffect(() => {
     if (isConfirmed) {
