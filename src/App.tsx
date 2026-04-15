@@ -53,7 +53,7 @@ export default function App() {
   const { isLoading: isConfirming, isSuccess: isConfirmed } = useWaitForTransactionReceipt({ hash });
 
   // Contract Address (User will replace this after deploying in Remix)
-  const CHECKIN_CONTRACT_ADDRESS = "0xd07e0a99DBe142A60eCbFbcd13A935bb7bBBE167"; 
+  const CHECKIN_CONTRACT_ADDRESS = "0x0000000000000000000000000000000000000000"; 
 
   useEffect(() => {
     if (isConfirmed) {
@@ -127,7 +127,7 @@ export default function App() {
             <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
               <span className="text-white font-bold text-xs">B</span>
             </div>
-            <h1 className="font-bold text-lg tracking-tight">Base Stats</h1>
+            <h1 className="font-bold text-lg tracking-tight">Base Checker</h1>
           </div>
           <ConnectKitButton />
         </div>
@@ -307,7 +307,7 @@ export default function App() {
                     </Button>
                     <p className="text-xs text-gray-400 mt-4 max-w-[200px]">
                       {isConnected 
-                        ? "This sends a 0 ETH transaction to yourself with a Builder Code."
+                        ? "This sends a 0 ETH transaction to yourself to verify activity."
                         : "Connect your wallet first to perform a check-in."}
                     </p>
                   </motion.div>
@@ -321,29 +321,11 @@ export default function App() {
                 </div>
               )}
             </CardContent>
-            <CardFooter className="border-t border-gray-100 bg-gray-50/50 flex flex-col items-start gap-2 py-4">
-              <div className="flex items-center gap-1.5 text-[11px] font-semibold text-gray-600">
-                <ShieldCheck className="w-3.5 h-3.5 text-green-600" />
-                <span>Builder Code Enabled</span>
-              </div>
-              <p className="text-[10px] text-gray-400 leading-relaxed">
-                This transaction includes a Base Builder Code ({BUILDER_CODE.slice(0, 10)}...) to support the ecosystem.
-              </p>
-            </CardFooter>
           </Card>
         </div>
 
         {/* Info Section */}
-        <div className="mt-12 grid gap-6 md:grid-cols-3">
-          <div className="p-4 rounded-xl bg-white border border-gray-100 shadow-sm">
-            <h4 className="font-bold text-sm mb-2 flex items-center gap-2">
-              <div className="w-1.5 h-1.5 bg-blue-600 rounded-full" />
-              What are Builder Codes?
-            </h4>
-            <p className="text-xs text-gray-500 leading-relaxed">
-              Builder codes are unique identifiers added to transactions. They help Base track which applications are driving activity on the network.
-            </p>
-          </div>
+        <div className="mt-12 grid gap-6 md:grid-cols-2">
           <div className="p-4 rounded-xl bg-white border border-gray-100 shadow-sm">
             <h4 className="font-bold text-sm mb-2 flex items-center gap-2">
               <div className="w-1.5 h-1.5 bg-blue-600 rounded-full" />
@@ -372,10 +354,9 @@ export default function App() {
             <div className="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center">
               <span className="text-white font-bold text-[10px]">B</span>
             </div>
-            <span className="font-bold text-sm">Base Stats</span>
+            <span className="font-bold text-sm">Base Checker</span>
           </div>
           <div className="flex gap-6 text-xs text-gray-400">
-            <a href="https://docs.base.org/base-chain/builder-codes/builder-codes" target="_blank" rel="noopener noreferrer" className="hover:text-blue-600 transition-colors">Builder Codes</a>
             <a href="https://docs.base.org/get-started/build-app" target="_blank" rel="noopener noreferrer" className="hover:text-blue-600 transition-colors">Base Docs</a>
             <a href="https://basescan.org" target="_blank" rel="noopener noreferrer" className="hover:text-blue-600 transition-colors">BaseScan</a>
           </div>
