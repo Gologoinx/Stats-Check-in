@@ -17,10 +17,10 @@ const config = createConfig(
     walletConnectProjectId: "c362140417242d547f87093256086884", // Public demo key
 
     // Required App Info
-    appName: "Base Stats & Check-in",
+    appName: "Base Checker",
 
     // Optional App Info
-    appDescription: "Track your Base wallet statistics and perform daily check-ins.",
+    appDescription: "Your ultimate Base ecosystem companion. Track wallet activity, monitor stats, and never miss a daily check-in.",
     appUrl: "https://base.org", // your app's url
     appIcon: "https://base.org/favicon.ico", // your app's icon
   }),
