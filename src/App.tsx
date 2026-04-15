@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
-import { useAccount, useBalance, useTransactionCount, useSendTransaction, useWaitForTransactionReceipt, useWriteContract } from "wagmi";
+import { useAccount, useBalance, useTransactionCount, useSendTransaction, useWaitForTransactionReceipt, useWriteContract, useSwitchChain } from "wagmi";
 import { ConnectKitButton, useModal } from "connectkit";
 import { formatEther, parseEther } from "viem";
+import { base } from "wagmi/chains";
 import { 
   Wallet, 
   Activity, 
@@ -40,18 +41,19 @@ export default function App() {
   const { data: balance, isLoading: isBalanceLoading } = useBalance({ address });
   const { data: txCount, isLoading: isTxCountLoading } = useTransactionCount({ address });
   const { setOpen } = useModal();
+  const { switchChain } = useSwitchChain();
   
   const [checkInStatus, setCheckInStatus] = useState<"idle" | "pending" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
 
-  const { sendTransaction, data: sendHash } = useSendTransaction();
-  const { writeContract, data: writeHash } = useWriteContract();
+  const { sendTransaction, data: sendHash, error: sendError } = useSendTransaction();
+  const { writeContract, data: writeHash, error: writeError } = useWriteContract();
   
   const hash = writeHash || sendHash;
   const { isLoading: isConfirming, isSuccess: isConfirmed } = useWaitForTransactionReceipt({ hash });
 
   // Contract Address (User will replace this after deploying in Remix)
-  const CHECKIN_CONTRACT_ADDRESS = "0x0000000000000000000000000000000000000000"; 
+  const CHECKIN_CONTRACT_ADDRESS = "0xd07e0a99DBe142A60eCbFbcd13A935bb7bBBE167"; 
 
   useEffect(() => {
     if (isConfirmed) {
@@ -59,10 +61,34 @@ export default function App() {
     }
   }, [isConfirmed]);
 
+  useEffect(() => {
+    if (sendError || writeError) {
+      setCheckInStatus("error");
+      const error = sendError || writeError;
+      if (error?.message?.toLowerCase().includes("insufficient funds")) {
+        setErrorMessage("Insufficient funds for gas. Please ensure you are on Base network and have enough ETH.");
+      } else {
+        setErrorMessage(error?.message || "Transaction failed");
+      }
+    }
+  }, [sendError, writeError]);
+
   const handleCheckIn = async () => {
     if (!isConnected) {
       setOpen(true);
       return;
+    }
+
+    // Ensure we are on Base
+    if (chain?.id !== base.id) {
+      try {
+        switchChain({ chainId: base.id });
+        return;
+      } catch (err) {
+        setCheckInStatus("error");
+        setErrorMessage("Please switch to Base network in your wallet.");
+        return;
+      }
     }
     
     try {
