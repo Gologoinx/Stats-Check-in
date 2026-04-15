@@ -1,6 +1,6 @@
 {
-  "name": "Base Stats & Check-in",
-  "description": "Track your Base wallet statistics and perform daily check-ins with Builder Codes.",
+  "name": "Base Checker",
+  "description": "Your ultimate Base ecosystem companion. Track wallet activity, monitor stats, and never miss a daily check-in. Built for the Base community.",
   "requestFramePermissions": [],
   "majorCapabilities": []
 }
