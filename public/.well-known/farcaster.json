@@ -1,0 +1,15 @@
+{
+  "accountAssociation": {
+    "header": "eyJhbGciOiJFUzI1NksifQ",
+    "payload": "eyJkb21haW4iOiJzdGF0cy1jaGVjay1pbi52ZXJjZWwuYXBwIn0",
+    "signature": "REPLACE_WITH_YOUR_SIGNATURE"
+  },
+  "frame": {
+    "version": "1",
+    "name": "Base Stats & Check-in",
+    "iconUrl": "https://stats-check-in.vercel.app/icon.png",
+    "splashImageUrl": "https://stats-check-in.vercel.app/splash.png",
+    "splashBackgroundColor": "#0052FF",
+    "homeUrl": "https://stats-check-in.vercel.app"
+  }
+}
